@@ -13,9 +13,13 @@
 
 Route::get('/', 'Admin\UserController@index');
 
-Route::get('/login', 'Admin\UserController@login');
+Route::get('/login', ['uses' => 'Admin\UserController@login','as'=>'login']);
 
 Route::post('/dologin', ['uses' => 'Admin\UserController@dologin','as'=>'dologin']);
+
+Route::get('/register', ['uses' => 'Admin\UserController@register','as'=>'register']);
+
+Route::get('/doreg', ['uses' => 'Admin\UserController@doreg','as'=>'doreg']);
 
 Route::get('/controller','Admin\UserController@show');
 

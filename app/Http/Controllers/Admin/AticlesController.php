@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB;
-
-class UserController extends Controller
+class AticlesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -86,34 +84,4 @@ class UserController extends Controller
     {
         //
     }
-
-
-    public function login()
-    {
-        return view('login');
-    }
-
-
-    public function dologin(Request $request)
-    {
-        $this->validate($request, [
-            'username' => 'required|unique:blog_users,user_name|min:4|max:20',
-            'password' => 'required',
-            'captcha' => 'required|captcha',
-        ]);
-
-    }
-
-    public function register()
-    {
-        return view('register');
-    }
-
-
-
-
-
-
-
-
 }

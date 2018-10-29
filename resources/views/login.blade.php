@@ -1,69 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>后台登录</title>
-	<link rel="stylesheet" type="text/css" href="{{PUBLIC_ADMIN_PATH}}css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="{{PUBLIC_ADMIN_PATH}}css/demo.css" />
-	<!--必要样式-->
-	<link rel="stylesheet" type="text/css" href="{{PUBLIC_ADMIN_PATH}}css/component.css" />
-	<!--[if IE]>
-	<script src="js/html5.js"></script>
-	<![endif]-->
+	<meta charset="utf-8">
+	<title>登录 - 知乎 - Thousands Find</title>
+	<link rel="stylesheet" type="text/css" href="{{PUBLIC_ADMIN_PATH}}style/register-login.css">
 </head>
 <body>
-	<div class="container demo-1">
-		<div class="content">
-			<div id="large-header" class="large-header">
-				<canvas id="demo-canvas"></canvas>
-				<div class="logo_box">
-					<h3>欢迎你</h3>
-					@if (count($errors) > 0)
-					    <div class="alert alert-danger">
-					        <ul>
-					            @foreach ($errors->all() as $error)
-					                <li style="color: red;">{{ $error }}</li>
-					            @endforeach
-					        </ul>
-					    </div>
-					@endif
-					<form name="f" method="post" action="{{route("dologin")}}">
-						<div class="input_outer">
-							<span class="u_user"></span>
-							<input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
-						</div>
-						<div class="input_outer">
-							<span class="us_uer"></span>
-							<input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
-							{{csrf_field()}}
-						</div>
-						<div class="input_box" style="overflow: hidden;">
-							<div class="input_outer" style="width: 50%;float:left;">
-								<span class="captcha"></span>
-								<input name="captcha" class="text" style="color: #FFFFFF !important; width:90px;" type="text" placeholder="请输入验证码" >
-							</div>
-							<div class="yzm" style="float:right;">
-								<img src="{{captcha_src('inverse')}}" style="cursor: pointer;height: 46px;" onclick="this.src='{{captcha_src()}}'+Math.random()">
-							</div>
-						</div>
+<div id="box"></div>
+<div class="cent-box">
+	<div class="cent-box-header">
+		<h1 class="main-title hide">知乎</h1>
+		<h2 class="sub-title">生活热爱分享 - Thousands Find</h2>
+	</div>
 
-						<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
-					</form>
-				</div>
+	<div class="cont-main clearfix">
+		<div class="index-tab">
+			<div class="index-slide-nav">
+				<a href="{{route('login')}}" class="active">登录</a>
+				<a href="{{route('register')}}">注册</a>
+				<div class="slide-bar"></div>
 			</div>
 		</div>
-	</div><!-- /container -->
-	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="{{PUBLIC_ADMIN_PATH}}js/TweenLite.min.js"></script>
-	<script src="{{PUBLIC_ADMIN_PATH}}js/EasePack.min.js"></script>
-	<script src="{{PUBLIC_ADMIN_PATH}}js/rAF.js"></script>
-	<script src="{{PUBLIC_ADMIN_PATH}}js/demo-1.js"></script>
-	<script>
-		$(".act-but").click(function() {
-			$("form[name='f']").submit();
-		});
-	</script>
+		@if (count($errors) > 0)
+		    <div class="alert alert-danger">
+		        <ul>
+		            @foreach ($errors->all() as $error)
+		                <li style="color: red;">{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+		@endif
+		<form action="{{route('dologin')}}" method="post">
+			<div class="login form">
+				<div class="group">
+					<div class="group-ipt email">
+						<input type="text" name="username" id="username" class="ipt" placeholder="请输入账户" value="{{old('username')}}" autocomplete="off" required>
+					</div>
+					<div class="group-ipt password">
+						<input type="password" name="password" id="password" class="ipt" placeholder="输入您的登录密码" required>
+					</div>
+					<div class="group-ipt verify">
+						<input type="text" name="verify" id="verify" class="ipt" placeholder="输入验证码" autocomplete="off" required>
+						{{csrf_field()}}
+						<img src="{{captcha_src('inverse')}}" class="imgcode">
+					</div>
+				</div>
+			</div>
+
+			<div class="button">
+				<button type="submit" class="login-btn register-btn" id="button">登录</button>
+			</div>
+		</form>
+
+		<div class="remember clearfix">
+			<label class="remember-me"><span class="icon"><span class="zt"></span></span><input type="checkbox" name="remember-me" id="remember-me" class="remember-mecheck" checked>记住我</label>
+			<label class="forgot-password">
+				<a href="#">忘记密码？</a>
+			</label>
+		</div>
+	</div>
+</div>
+
+<div class="footer">
+	<p>知乎 - Thousands Find</p>
+	<p>Designed By ZengRong & <a href="zrong.me">mycodes.net</a> 2016</p>
+</div>
+
+<script src='{{PUBLIC_ADMIN_PATH}}js/particles.js' type="text/javascript"></script>
+<script src='{{PUBLIC_ADMIN_PATH}}js/background.js' type="text/javascript"></script>
+<script src='{{PUBLIC_ADMIN_PATH}}js/jquery.min.js' type="text/javascript"></script>
+<script src='{{PUBLIC_ADMIN_PATH}}js/layer/layer.js' type="text/javascript"></script>
+<script src='{{PUBLIC_ADMIN_PATH}}js/index.js' type="text/javascript"></script>
+<script>
+	$('.imgcode').hover(function(){
+		layer.tips("看不清？点击更换", '.verify', {
+        		time: 6000,
+        		tips: [2, "#3c3c3c"]
+    		})
+	},function(){
+		layer.closeAll('tips');
+	}).click(function(){
+		$(this).attr('src','{{captcha_src('inverse')}}' + Math.random());
+	});
+	$("#remember-me").click(function(){
+		var n = document.getElementById("remember-me").checked;
+		if(n){
+			$(".zt").show();
+		}else{
+			$(".zt").hide();
+		}
+	});
+</script>
 </body>
 </html>
