@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>登录 - 知乎 - Thousands Find</title>
-	<link rel="stylesheet" type="text/css" href="{{PUBLIC_ADMIN_PATH}}style/register-login.css">
+	<link rel="stylesheet" href="{{PUBLIC_ADMIN_PATH}}style/register-login.css">
 </head>
 <body>
 <div id="box"></div>
@@ -40,9 +40,9 @@
 						<input type="password" name="password" id="password" class="ipt" placeholder="输入您的登录密码" required>
 					</div>
 					<div class="group-ipt verify">
-						<input type="text" name="verify" id="verify" class="ipt" placeholder="输入验证码" autocomplete="off" required>
+						<input type="text" name="captcha" id="captcha" class="ipt" placeholder="输入验证码" autocomplete="off" required>
 						{{csrf_field()}}
-						<img src="{{captcha_src('inverse')}}" class="imgcode">
+						<img src="{{captcha_src('flat')}}" class="imgcode">
 					</div>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 <script src='{{PUBLIC_ADMIN_PATH}}js/particles.js' type="text/javascript"></script>
 <script src='{{PUBLIC_ADMIN_PATH}}js/background.js' type="text/javascript"></script>
 <script src='{{PUBLIC_ADMIN_PATH}}js/jquery.min.js' type="text/javascript"></script>
-<script src='{{PUBLIC_ADMIN_PATH}}js/layer/layer.js' type="text/javascript"></script>
+<!-- <script src='{{PUBLIC_ADMIN_PATH}}js/layer/layer.js' type="text/javascript"></script> -->
 <script src='{{PUBLIC_ADMIN_PATH}}js/index.js' type="text/javascript"></script>
 <script>
 	$('.imgcode').hover(function(){
@@ -80,7 +80,7 @@
 	},function(){
 		layer.closeAll('tips');
 	}).click(function(){
-		$(this).attr('src','{{captcha_src('inverse')}}' + Math.random());
+		$(this).attr('src','{{captcha_src('flat')}}' + Math.random());
 	});
 	$("#remember-me").click(function(){
 		var n = document.getElementById("remember-me").checked;

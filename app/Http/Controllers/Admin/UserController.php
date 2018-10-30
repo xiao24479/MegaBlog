@@ -96,6 +96,7 @@ class UserController extends Controller
 
     public function dologin(Request $request)
     {
+        //dd($request->all());
         $this->validate($request, [
             'username' => 'required|unique:blog_users,user_name|min:4|max:20',
             'password' => 'required',
@@ -107,6 +108,20 @@ class UserController extends Controller
     public function register()
     {
         return view('register');
+    }
+
+    public function doreg(Request $request)
+    {
+        //dd($request->all());
+        $this->validate($request, [
+            'username' => 'required|unique:blog_users,user_name|min:4|max:20',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6',
+            'email' => 'required|email|unique:blog_users,email',
+            'captcha' => 'required|captcha',
+        ]);
+
+        dd($request->all());
     }
 
 

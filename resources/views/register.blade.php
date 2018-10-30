@@ -21,31 +21,57 @@
 				<div class="slide-bar slide-bar1"></div>
 			</div>
 		</div>
-
-		<div class="login form">
-			<div class="group">
-				<div class="group-ipt user">
-					<input type="text" name="username" id="username" class="ipt" placeholder="选择一个用户名" autocomplete="off" required>
-				</div>
-				<div class="group-ipt password">
-					<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码" required>
-				</div>
-				<div class="group-ipt password1">
-					<input type="password" name="password1" id="password1" class="ipt" placeholder="重复密码" required>
-				</div>
-				<div class="group-ipt email">
-					<input type="email" name="email" id="email" class="ipt" placeholder="邮箱地址" autocomplete="off" required>
-				</div>
-				<div class="group-ipt verify">
-					<input type="text" name="verify" id="verify" class="ipt" placeholder="输入验证码" autocomplete="off" required>
-					<img src="{{captcha_src('inverse')}}" class="imgcode">
+		<form action="{{route('doreg')}}" method="post">
+			<div class="login form">
+				<div class="group">
+					<div class="group-ipt user{{ $errors->has('username') ? ' has-error' : '' }}">
+						<input type="text" name="username" id="username" class="ipt" placeholder="选择一个用户名" autocomplete="off" value="{{old('username')}}" required>
+						@if ($errors->has('username'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('username') }}</strong>
+	                        </span>
+	                    @endif
+					</div>
+					<div class="group-ipt password{{ $errors->has('password') ? ' has-error' : '' }}">
+						<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码" required>
+						@if ($errors->has('password'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('password') }}</strong>
+	                        </span>
+	                    @endif
+					</div>
+					<div class="group-ipt confirm_password{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+						<input type="password" name="password_confirmation" id="confirm_password" class="ipt" placeholder="重复密码" required>
+						@if ($errors->has('password_confirmation'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+	                        </span>
+	                    @endif
+					</div>
+					<div class="group-ipt email{{ $errors->has('email') ? ' has-error' : '' }}">
+						<input type="email" name="email" id="email" class="ipt" placeholder="邮箱地址" autocomplete="off" value="{{old('email')}}" required>
+						@if ($errors->has('email'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('email') }}</strong>
+	                        </span>
+	                    @endif
+					</div>
+					<div class="group-ipt verify{{ $errors->has('captcha') ? ' has-error' : '' }}">
+						<input type="text" name="captcha" id="captcha" class="ipt" placeholder="输入验证码" autocomplete="off" value="{{old('captcha')}}" required>
+						<img src="{{captcha_src('flat')}}" class="imgcode">
+						@if ($errors->has('captcha'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('captcha') }}</strong>
+	                        </span>
+	                    @endif
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="button">
-			<button type="submit" class="login-btn register-btn" id="button">注册</button>
-		</div>
+			<div class="button">
+				{!! csrf_field() !!}
+				<button type="submit" class="login-btn register-btn" id="button">注册</button>
+			</div>
+		</form>
 	</div>
 </div>
 
@@ -68,7 +94,7 @@
 	},function(){
 		layer.closeAll('tips');
 	}).click(function(){
-		$(this).attr('src','{{captcha_src('inverse')}}' + Math.random());
+		$(this).attr('src','{{captcha_src('flat')}}' + Math.random());
 	})
 
 	$(".login-btn").click(function(){

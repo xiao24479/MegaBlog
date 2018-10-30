@@ -19,19 +19,8 @@ Route::post('/dologin', ['uses' => 'Admin\UserController@dologin','as'=>'dologin
 
 Route::get('/register', ['uses' => 'Admin\UserController@register','as'=>'register']);
 
-Route::get('/doreg', ['uses' => 'Admin\UserController@doreg','as'=>'doreg']);
+Route::post('/doreg', ['uses' => 'Admin\UserController@doreg','as'=>'doreg']);
 
 Route::get('/controller','Admin\UserController@show');
-
-Route::get('/user/edit/{id}', [
-	'middleware' => 'login',
-	'uses' => 'UserController@edit'
-]);
-
-// Route::controller('goods','GoodsController');
-
-
-Route::get('/get','UserController@get');
-
 
 

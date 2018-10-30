@@ -12,7 +12,7 @@ return [
     ],
 
     'flat'   => [
-        'length'    => 6,
+        'length'    => 4,
         'width'     => 160,
         'height'    => 46,
         'quality'   => 90,
@@ -30,10 +30,10 @@ return [
     ],
 
     'inverse'   => [
-        'length'    => 4,
-        'width'     => 95,
-        'height'    => 40,
-        'quality'   => 100,
+        'length'    => 1,
+        'width'     => 120,
+        'height'    => 36,
+        'quality'   => 90,
         'sensitive' => true,
         'angle'     => 12,
         'sharpen'   => 10,
