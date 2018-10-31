@@ -25,7 +25,7 @@
 			<div class="login form">
 				<div class="group">
 					<div class="group-ipt user{{ $errors->has('username') ? ' has-error' : '' }}">
-						<input type="text" name="username" id="username" class="ipt" placeholder="选择一个用户名" autocomplete="off" value="{{old('username')}}" required>
+						<input type="text" name="username" id="username" class="ipt" placeholder="选择一个用户名" autocomplete="off" value="{{old('username')}}">
 						@if ($errors->has('username'))
 	                        <span class="help-block">
 	                            <strong>{{ $errors->first('username') }}</strong>
@@ -33,7 +33,7 @@
 	                    @endif
 					</div>
 					<div class="group-ipt password{{ $errors->has('password') ? ' has-error' : '' }}">
-						<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码" required>
+						<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码">
 						@if ($errors->has('password'))
 	                        <span class="help-block">
 	                            <strong>{{ $errors->first('password') }}</strong>
@@ -41,7 +41,7 @@
 	                    @endif
 					</div>
 					<div class="group-ipt confirm_password{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-						<input type="password" name="password_confirmation" id="confirm_password" class="ipt" placeholder="重复密码" required>
+						<input type="password" name="password_confirmation" id="confirm_password" class="ipt" placeholder="重复密码">
 						@if ($errors->has('password_confirmation'))
 	                        <span class="help-block">
 	                            <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -49,7 +49,7 @@
 	                    @endif
 					</div>
 					<div class="group-ipt email{{ $errors->has('email') ? ' has-error' : '' }}">
-						<input type="email" name="email" id="email" class="ipt" placeholder="邮箱地址" autocomplete="off" value="{{old('email')}}" required>
+						<input type="email" name="email" id="email" class="ipt" placeholder="邮箱地址" autocomplete="off" value="{{old('email')}}">
 						@if ($errors->has('email'))
 	                        <span class="help-block">
 	                            <strong>{{ $errors->first('email') }}</strong>
@@ -57,7 +57,7 @@
 	                    @endif
 					</div>
 					<div class="group-ipt verify{{ $errors->has('captcha') ? ' has-error' : '' }}">
-						<input type="text" name="captcha" id="captcha" class="ipt" placeholder="输入验证码" autocomplete="off" value="{{old('captcha')}}" required>
+						<input type="text" name="captcha" id="captcha" class="ipt" placeholder="输入验证码" autocomplete="off" value="{{old('captcha')}}">
 						<img src="{{captcha_src('flat')}}" class="imgcode">
 						@if ($errors->has('captcha'))
 	                        <span class="help-block">
@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			<div class="button">
-				{!! csrf_field() !!}
+				{{csrf_field()}}
 				<button type="submit" class="login-btn register-btn" id="button">注册</button>
 			</div>
 		</form>

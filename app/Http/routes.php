@@ -21,6 +21,12 @@ Route::get('/register', ['uses' => 'Admin\UserController@register','as'=>'regist
 
 Route::post('/doreg', ['uses' => 'Admin\UserController@doreg','as'=>'doreg']);
 
-Route::get('/controller','Admin\UserController@show');
+Route::group(['middleware' => 'auth'], function () {
 
+	Route::get('/admin/index',['uses' => 'Admin\AdminController@index','as'=>'admin_index']);
 
+	Route::get('/admin/dashboard',['uses' => 'Admin\AdminController@dashboard','as'=>'admin_dashboard']);
+
+	Route::get('/logout', ['uses' => 'Admin\UserController@logout','as'=>'logout']);
+
+});
