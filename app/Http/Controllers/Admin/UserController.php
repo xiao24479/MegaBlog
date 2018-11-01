@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Model\User;
+use App\Model\Session;
 
 class UserController extends Controller
 {
@@ -90,7 +91,10 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        //$request->session()->flush();
+        //dd(session()->getID());
+        if ($request->session()->has('uid') && $request->session()->has('username')) {
+            return redirect(route('admin_index'));
+        }
         return view('login');
     }
 
@@ -112,11 +116,19 @@ class UserController extends Controller
         $username = $request_array['username'];
         $password = md5($request_array['password']);
 
-        $user = User::select('uid')->where('user_name', $username)->where('password', $password)->first();
+        //根据用户名密码查询uid
+        $user = User::select('uid','login_time')->where('user_name', $username)->where('password', $password)->first();
 
         if ($user) {
-            $request->session()->push('uid', $user->uid);
-            $request->session()->push('username', $username);
+            $request->session()->put('uid', $user->uid);
+            $request->session()->put('username', $username);
+
+            //更新上次登录时间
+            User::where('uid', $user->uid)->update(['login_time' => time(),'last_login_time' => $user->login_time]);
+
+            //把uid存入sessions表中
+            Session::where('id',session()->getID())->update(['user_id' => $user->uid]);
+
             return redirect(route('admin_index'));
         } else {
             $validator = ['用户名或密码错误！'];
@@ -161,8 +173,11 @@ class UserController extends Controller
             $uid = $user->uid;
             $username = $user->user_name;
 
-            $request->session()->push('uid', $uid);
-            $request->session()->push('username', $username);
+            $request->session()->put('uid', $uid);
+            $request->session()->put('username', $username);
+
+            //把uid存入sessions表中
+            Session::where('id',session()->getID())->update(['user_id' => $user->uid]);
 
             return redirect(route('admin_index'));
 
