@@ -119,6 +119,7 @@ class UserController extends Controller
             $request->session()->push('username', $username);
             return redirect(route('admin_index'));
         } else {
+            $validator = ['用户名或密码错误！'];
             return redirect()->back()->withErrors($validator)->withInput();
         }
 

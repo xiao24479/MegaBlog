@@ -4,7 +4,7 @@ CREATE TABLE `users` (
 
 `user_name` varchar(50) NULL,
 
-`password` int(32) NULL,
+`password` varchar(32) NULL,
 
 `email` varchar(50) NULL,
 
